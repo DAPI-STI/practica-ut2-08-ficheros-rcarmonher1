@@ -36,4 +36,20 @@ def count_word_in_file(path: str | Path, word: str) -> int:
     Fichero: "Hola hola mundo"
     word="hola" -> 2
     """
+    with open(path, "r", encoding="utf-8") as file:
+      minusculas = file.read().lower()
+        
+    if not Path(path).is_file():
+      raise FileNotFoundError("El fichero path no existe.")
+    
+    if not word.strip():
+      raise ValueError("La palabra no puede estar vacía o solo espacios.")
+    
+    for a in string.punctuation:
+      minusculas = minusculas.replace(a, " ")
+      
+    palabras = minusculas.split()
+    
+    return palabras.count(word.lower())
+      
     raise NotImplementedError("Implementa count_word_in_file(path, word)")
